@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Image</title>
+</head>
+<body>
+
+<!-- Container to show the image -->
+<div id="imageContainer"></div>
+
+<script>
+// Array of image URLs
+const imageData = [
+  "img/anhTrungThuong.jpg", // First image (relative path)
+  "img/anhTruotGiai.jpg"  // Second image (relative path)
+];
+
+// Retrieve the count of page loads from localStorage, default is 0
+let pageLoadCount = localStorage.getItem("pageLoadCount") || 0;
+
+// Function to show the appropriate image based on the page load count
+function showImage() {
+  // Get the image container
+  const imageContainer = document.getElementById("imageContainer");
+
+  // Clear previous content
+  imageContainer.innerHTML = "";
+
+  // Determine which image to show
+  let imgUrl;
+  if (pageLoadCount < 10) {
+    // Show the first image for the first 10 page loads
+    imgUrl = imageData[0];
+  } else {
+    // Show the second image after 10 page loads
+    imgUrl = imageData[1];
+  }
+
+  // Increment the page load count
+  pageLoadCount++;
+
+  // Update the page load count in localStorage
+  localStorage.setItem("pageLoadCount", pageLoadCount);
+
+  // Create a new image element
+  const img = document.createElement("img");
+  img.src = imgUrl;
+  img.alt = "Image";
+  img.style.maxWidth = "100%";
+  img.style.height = "auto";
+
+  // Append the image to the container
+  imageContainer.appendChild(img);
+}
+
+// Call the function to show the image when the page loads
+window.onload = showImage;
+</script>
+
+</body>
+</html>
